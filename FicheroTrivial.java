@@ -18,16 +18,13 @@ public class FicheroTrivial {
             f.writeUTF(pregunta);
             f.writeUTF(respuesta);
 
-            pregunta = f.readUTF();
-            respuesta = f.readUTF();
-            int idPregunta = f.readInt();
-
             f.close();
             resultado = 0;
         }
         catch (Exception e) {
             resultado = -1;
             e.printStackTrace();
+            System.out.println("No se ha podido guardar");
         }
         return resultado;
     }
@@ -40,6 +37,10 @@ public class FicheroTrivial {
         String[] datos = new String[40];
         try {
             File f = new File("Trivial.bin");
+            if (!f.exists()) {
+                System.out.println("Creando...");
+                return datos;
+            }
             Scanner s = new Scanner(f);
             int i = 0;
             while (s.hasNextLine()) {
@@ -74,4 +75,43 @@ public class FicheroTrivial {
             e.printStackTrace();
         }
     }
+
+    /*
+     * Creamos un método buscar,
+     * que nos buscará las preguntas que le pidamos
+     */
+    public void buscar (int id) {
+        try {
+            File f = new File("Trivial.bin");
+            Scanner s = new Scanner(f);
+            while (s.hasNextLine()) {
+                String linea = s.nextLine();
+                String[] partes = linea.split(";");
+                if (Integer.parseInt(partes[0]) == id) {
+                    System.out.println(partes[0] + " " + partes[1] + " " + partes[2]);
+                }
+            } s.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void azar() {
+        try {
+            File f = new File("Trivial.bin");
+            Scanner s = new Scanner(f);
+            int num = (int) (Math.random() * 10);
+            for (int i = 0; i < num; i++) {
+                String linea = s.nextLine();
+                String[] partes = linea.split(";");
+                System.out.println(partes[0] + " " + partes[1] + " " + partes[2]);
+            } s.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    
 }

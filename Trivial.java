@@ -114,20 +114,67 @@ class Trivial {
      * El cuarto método nos permitirá modificar las preguntas
      */
     public static void modificarPreguntas() {
-        
+        System.out.println("Introduce el id de la pregunta que quieres modificar:");
+        int id = Integer.parseInt(System.console().readLine());
+        System.out.println();
+        FicheroTrivial ft = new FicheroTrivial();
+        String[] infopregunta = ft.mostrar();
+        String pregunta = "";
+        String respuesta = "";
+
+        for (int i = 0; i < infopregunta.length; i++) {
+            if (infopregunta[i] != null && infopregunta[i].equals(id + "")) {
+                for (int j = 0; j < 3; j++) {
+                    System.out.print(infopregunta[i] + "  ");
+                    i++;
+                }
+                System.out.println();
+                System.out.println("Introduce la nueva pregunta");
+                pregunta = System.console().readLine();
+                System.out.println("Introduce la nueva respuesta");
+                respuesta = System.console().readLine();
+                ft.modificar(pregunta, respuesta);
+            }
+        }
     }
 
     /*
      * El quinto método nos permitirá borrar las preguntas
      */
     public static void borrarPreguntas() {
-        
+        System.out.println("Introduce el id de la pregunta que quieres borrar:");
+        int id = Integer.parseInt(System.console().readLine());
+        System.out.println();
+        FicheroTrivial ft = new FicheroTrivial();
+        String[] infopregunta = ft.mostrar();
+        String pregunta = "";
+        String respuesta = "";
+
+        for (int i = 0; i < infopregunta.length; i++) {
+            if (infopregunta[i] != null && infopregunta[i].equals(id + "")) {
+                for (int j = 0; j < 3; j++) {
+                    System.out.print(infopregunta[i] + "  ");
+                    i++;
+                }
+                System.out.println();
+                System.out.println("¿Estás seguro de que quieres borrar esta pregunta? (s/n)");
+                String respuesta2 = System.console().readLine();
+                if (respuesta2.equals("s")) {
+                    ft.modificar(pregunta, respuesta);
+                }
+            }
+        }        
     }
 
     /*
      * El sexto método nos permitirá elegir una pregunta al azar
      */
     public static void azarPregunta() {
-        
+        FicheroTrivial ft = new FicheroTrivial();
+        String[] infopregunta = ft.mostrar();
+        int aleatorio = (int)(Math.random() * 40);
+        System.out.println("La pregunta elegida al azar es:");
+        System.out.println(infopregunta[aleatorio] + "  " + infopregunta[aleatorio + 1] + "  " + infopregunta[aleatorio + 2]);
+        System.out.println();
     }
 }
